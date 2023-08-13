@@ -34,12 +34,12 @@ export default function Home() {
                   <div>
                     <h2>{country.name.common}</h2>
                     <div className={style.info}>
-                      <p>Capital City</p>
+                      <p>CAPITAL CITY</p>
                       <h4>
                         <CapitalIcon /> {" "+country.capital}
                       </h4>
 
-                      <p>Language</p>
+                      <p>LANGUAGE</p>
                       <h4>
                         <LanguageIcon />
                         {" "+firstLanguage}
