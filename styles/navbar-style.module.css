@@ -1,0 +1,84 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgb(51, 51, 51, 0.9);
+  box-shadow: 0 1px 12px 2px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.logoContainer {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logoContainer spam{
+  margin-left: 0.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2rem;
+  font-weight: lighter;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.searchInput {
+  padding: 0.6rem;
+  width: 14rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.searchButton {
+  background-color: #4ab057;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 0 0.8rem;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+
+.searchButton:hover{
+  background-color: #d9e8e8;
+  color: black;
+  transition: 0.5s;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem 0.5rem; 
+  }
+
+  .logoContainer,
+  .searchContainer {
+    width: 100%;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+
+  .searchContainer {
+    align-items: flex-start; /* Üst kenar */
+  }
+
+  .searchInput,
+  .searchButton {
+    width: 50%; 
+    margin-top: 0.5rem; 
+  }
+}
