@@ -44,3 +44,19 @@
     transition: 0.5s;
   }
   
+  @media screen and (max-width: 768px) {
+    .content {
+      padding: 0.5rem; 
+    }
+    .title {
+      font-size: 2rem; 
+    }
+  
+    .subtitle {
+      font-size: 1.2rem; 
+    }
+
+    .description{
+      font-size: 0.9rem;
+    }
+  }

@@ -5,7 +5,7 @@ function PageNotFound() {
   return (
     <div className={style.container}>
       <div className={style.content}>
-        <h1 className={style.title}>Sorrys</h1>
+        <h1 className={style.title}>Sorry</h1>
         <p className={style.subtitle}>We Lost This Page &#127811;</p>
         <img src="./404-img.png"></img>
         <p className={style.description}>
