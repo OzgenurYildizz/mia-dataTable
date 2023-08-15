@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import style from "../styles/list-style.module.css";
 import Navbar from "./navbar";
@@ -6,9 +6,10 @@ import Navbar from "./navbar";
 import CapitalIcon from "../icons/capital-icon";
 import LanguageIcon from "../icons/language-icon";
 
-
 export default function Home() {
   const [countries, setCountries] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     axios
@@ -17,11 +18,35 @@ export default function Home() {
       .catch((error) => console.log({ error }));
   }, []);
 
-  const limitedCountries = countries.slice(0, 5);
+  useEffect(() => {
+    const results = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm, countries]);
+
+  const limitedCountries = searchResults.slice(0, 10);
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
+      <div className={style.searchContainer}>
+        <input
+          type="text"
+          placeholder="Name Of The Country .."
+          className={style.searchInput}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button
+          className={style.searchButton}
+          onClick={() => {
+            console.log("Clicked Button. \nCountry name:", searchTerm);
+          }}
+        >
+          Search
+        </button>
+      </div>
       {limitedCountries.map((country) => {
         const firstLanguageKey = Object.keys(country.languages)[0];
         const firstLanguage = country.languages[firstLanguageKey];
@@ -40,12 +65,12 @@ export default function Home() {
                     <div className={style.info}>
                       <p>CAPITAL CITY</p>
                       <h4>
-                        <CapitalIcon /> {" "+country.capital}
+                        <CapitalIcon /> {" " + country.capital}
                       </h4>
                       <p>LANGUAGE</p>
                       <h4>
                         <LanguageIcon />
-                        {" "+firstLanguage}
+                        {" " + firstLanguage}
                       </h4>
                     </div>
                   </div>

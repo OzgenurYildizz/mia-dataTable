@@ -1,3 +1,36 @@
+.searchContainer {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.searchInput {
+  padding: 0.4rem;
+  width: 14rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.searchButton {
+  background-color: #4ab057;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 0 1rem;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+}
+
+.searchButton:hover{
+  background-color: #d9e8e8;
+  color: black;
+  transition: 0.5s;
+}
+
 .list {
   width: 90%;
   max-width: 40rem;
@@ -23,17 +56,15 @@
   
   .content {
     width: 100%;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     text-align: center;
   }
   
   .content h2 {
     margin: 0.5rem 0;
+    font-size: 1.7rem;
   }
 
-  .info {
-    align-items: center;
-  }
 
   .content .info {
     margin: 0.5rem 0;
@@ -67,6 +98,5 @@
     .content h2 {
       margin: 1rem 0;
     }
-  
   
   }

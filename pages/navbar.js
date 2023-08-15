@@ -21,20 +21,7 @@ export default function Navbar() {
         />
         <spam>World Flags ~</spam>
       </div>
-      <div className={style.searchContainer}>
-        <input
-          type="text"
-          placeholder="Name Of The Country .."
-          className={style.searchInput}
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          onKeyPress={handleKeyPress} //neden üstü çizili ?
-        />
-        <button 
-        className={style.searchButton}
-        onClick={() => {console.log("Clicked Button. \nCountry name:", searchInput)}}
-        >Search</button>
-      </div>
+     
     </nav>
   );
 }

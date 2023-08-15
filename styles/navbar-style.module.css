@@ -17,47 +17,16 @@
 
 .logoContainer spam{
   margin-left: 0.2rem;
-  font-size: 0.7rem;
+  font-size: 1rem;
   letter-spacing: 0.2rem;
   font-weight: lighter;
 }
 
 .logo {
-  width: 60px;
+  width: 70px;
   height: auto;
 }
 
-.searchContainer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.searchInput {
-  padding: 0.6rem;
-  width: 14rem;
-  border: none;
-  border-radius: 5px;
-}
-
-.searchButton {
-  background-color: #4ab057;
-  font-weight: bold;
-  letter-spacing: 0.1rem;
-  font-size: 0.9rem;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin: 0 0.8rem;
-  padding: 0.55rem 1rem;
-  cursor: pointer;
-}
-
-.searchButton:hover{
-  background-color: #d9e8e8;
-  color: black;
-  transition: 0.5s;
-}
 
 @media screen and (max-width: 768px) {
   .navbar {
@@ -65,20 +34,11 @@
     padding: 1rem 0.5rem; 
   }
 
-  .logoContainer,
-  .searchContainer {
+  .logoContainer
+  {
     width: 100%;
     padding: 0.5rem;
     justify-content: center;
   }
 
-  .searchContainer {
-    align-items: flex-start; /* Üst kenar */
-  }
-
-  .searchInput,
-  .searchButton {
-    width: 50%; 
-    margin-top: 0.5rem; 
-  }
 }
