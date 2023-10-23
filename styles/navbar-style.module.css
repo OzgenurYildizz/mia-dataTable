@@ -1,6 +1,7 @@
 .navbar {
   position: sticky;
   top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,6 +27,40 @@
   width: 70px;
   height: auto;
 }
+
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.searchInput {
+  padding: 0.4rem;
+  width: 14rem;
+  border: none;
+  border-radius: 5px;
+  color: black;
+}
+
+.searchButton {
+  background-color: #4ab057;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 0 1rem;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+}
+
+.searchButton:hover{
+  background-color: rgb(51, 51, 51, 0.9);
+  transition: 0.5s;
+}
+
 
 
 @media screen and (max-width: 768px) {
