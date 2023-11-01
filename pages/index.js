@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("https://restcountries.com/v3.1/all")
+      .get("https://restcountries.com/v3.1/alla")
       .then((response) => setCountries(response.data))
       .catch((error) => console.log({ error }));
   }, []);
