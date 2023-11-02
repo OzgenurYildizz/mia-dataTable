@@ -1,36 +1,84 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Navbar from "../component/Navbar";
 import CustomDataTable from "../component/CustomDataTable";
+import PaginationControls from '../component/PaginationControls';
+import { useRouter } from 'next/router';
+import { Dropdown } from 'primereact/dropdown';
 
 export default function Home() {
-  const [countries, setCountries] = useState([]);
+  const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+  const { query } = router;
+
+  const page = query.page ? Number(query.page) : 1;
+  const per_page = query.per_page ? Number(query.per_page) : 5;
+
+  const perPageOptions = [5, 10, 20, 50];
+  const [selectedPerPage, setSelectedPerPage] = useState(per_page);
+
+  const handlePerPageChange = (value) => {
+    setSelectedPerPage(value);
+    router.push(`/?page=${page}&per_page=${value}`);
+  };
 
   useEffect(() => {
-    axios
-      .get("https://restcountries.com/v3.1/all")
-      .then((response) => setCountries(response.data))
-      .catch((error) => console.log({ error }));
-  }, []);
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `https://dummyjson.com/products?limit=${per_page}&skip=${(page - 1) * per_page}`
+        );
+        if (response.ok) {
+          const result = await response.json();
+          setData(result.products);
+        } else {
+          console.error('API veri çekme hatası');
+        }
+      } catch (error) {
+        console.error('API veri çekme hatası', error);
+      }
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [page, per_page]);
 
   useEffect(() => {
-    const results = countries.filter((country) =>
-      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
-  }, [searchTerm, countries]);
+    if (data.length > 0) {
+      const results = data.filter((product) =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    }
+  }, [searchTerm, data]);
 
-  console.log(countries);
   return (
     <div>
-      <Navbar searchTerm={searchTerm}
+      <Navbar
+        searchTerm={searchTerm}
         onSearchTermChange={setSearchTerm}
         onSearchButtonClick={() => {
           console.log("Clicked Button. \nCountry name:", searchTerm);
-        }}/>
-      <CustomDataTable data={searchResults} />
+        }}
+      />
+      <Dropdown
+        value={selectedPerPage}
+        options={perPageOptions}
+        onChange={(e) => handlePerPageChange(e.value)}
+      />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <CustomDataTable data={searchResults} perPage={selectedPerPage} page={page}/>
+      )}
+      <PaginationControls
+        hasNextPage={data.length >= per_page}
+        hasPrevPage={page > 1}
+      />
     </div>
   );
 }
