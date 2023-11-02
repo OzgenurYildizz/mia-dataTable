@@ -2,12 +2,12 @@ import React from "react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-function CustomDataTable({ data, perPage }) {
+function CustomDataTable({ data }) {
 
   return (
     <div>
     <DataTable 
-    value={data.slice(0, perPage)}
+    value={data}
     className="dataTable"
     scrollable={true}
     scrollHeight="500px"
