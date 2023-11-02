@@ -22,7 +22,6 @@ export default function PaginationControls({ hasNextPage, hasPrevPage }) {
   return (
     <div className={style.paginationControls}>
       <button
-        className=''
         disabled={!hasPrevPage}
         onClick={handlePrevPage}>
         prev page
@@ -33,7 +32,6 @@ export default function PaginationControls({ hasNextPage, hasPrevPage }) {
       </div>
 
       <button
-        className=''
         disabled={!hasNextPage}
         onClick={handleNextPage}>
         next page

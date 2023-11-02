@@ -3,7 +3,6 @@ import Navbar from "../component/Navbar";
 import CustomDataTable from "../component/CustomDataTable";
 import PaginationControls from '../component/PaginationControls';
 import { useRouter } from 'next/router';
-import { Dropdown } from 'primereact/dropdown';
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -65,15 +64,11 @@ export default function Home() {
           console.log("Clicked Button. \nCountry name:", searchTerm);
         }}
       />
-      <Dropdown
-        value={selectedPerPage}
-        options={perPageOptions}
-        onChange={(e) => handlePerPageChange(e.value)}
-      />
+     
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <CustomDataTable data={searchResults} perPage={selectedPerPage} page={page}/>
+        <CustomDataTable data={searchResults}/>
       )}
       <PaginationControls
         hasNextPage={data.length >= per_page}
