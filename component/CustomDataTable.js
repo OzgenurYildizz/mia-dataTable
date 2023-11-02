@@ -1,77 +1,31 @@
-import React, { useState } from "react";
-import style from "../styles/table-style.module.css";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Image } from "primereact/image";
-import { Dropdown } from "primereact/dropdown";
+import React from "react";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
-const CustomDataTable = ({ data }) => {
-  const customPaginatorTemplate = {
-    layout:
-      "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown",
-    currentPageReportTemplate: "{currentPage} / {totalPages}",
-  };
-
-  const rowsPerPageOptions = [10, 20, 50, 100];
-
-  const [rows, setRows] = useState(20); // Varsayılan olarak 20 kayıt göster
-
-  const handleRowsChange = (event) => { //event: kullanıcının seçtiği row sayısı
-    setRows(event.value);
-  };
-
-  const viewImage = (rowData) => {
-    return <Image className={style.tableImage} src={rowData.flags.png} alt={rowData.name.common} preview />;
-  };
-
-  const renderLanguages = (rowData) => {
-    const languages = rowData.languages;
-
-    if (languages) {
-      const languageList = Object.values(languages).slice(0, 2).join(", "); //ilk iki dili almak için
-      return languageList;
-    }
-
-    return null; // Eğer diller mevcut değilse veya boşsa, boş bir değer döndürür
-  };
-
-  const renderCurrencies = (rowData) => {
-    const currencies = rowData.currencies;
-
-    if (currencies && typeof currencies === "object") {
-      const currencySymbols = Object.values(currencies).map((currency) => currency.symbol);
-      return currencySymbols.join(", ");
-    }
-
-    return null; // currencies özelliği yok veya boşsa, boş bir değer döndür
-  };
+function CustomDataTable({ data, perPage }) {
 
   return (
     <div>
-      <Dropdown
-        value={rows}
-        options={rowsPerPageOptions}
-        onChange={handleRowsChange}
-      />
-      <DataTable
-        value={data}
-        dataKey="id"
-        className="dataTable"
-        scrollable={true}
-        scrollHeight="500px"
-        paginator={true}
-        rows={rows}
-        emptyMessage="No data found."
-        paginatorTemplate={customPaginatorTemplate}
-      >
-        <Column header="Flag" body={viewImage} />
-        <Column field="name.common" header="Country Name" />
-        <Column field="capital" header="Capital" />
-        <Column header="Languages" body={renderLanguages} />
-        <Column header="Currencies" body={renderCurrencies} />
-      </DataTable>
+    <DataTable 
+    value={data.slice(0, perPage)}
+    className="dataTable"
+    scrollable={true}
+    scrollHeight="500px"
+    >
+      <Column field="thumbnail" header="Resim" body={imageBodyTemplate} />
+      <Column field="title" header="Başlık" />
+      <Column field="category" header="Katagori" />
+      <Column field="price" header="Fiyat" />
+      <Column field="rating" header="Puan" />
+      <Column field="stock" header="Stok" />
+      <Column field="brand" header="Marka" />
+    </DataTable>    
     </div>
   );
-};
+}
+
+function imageBodyTemplate(data) {
+  return <img src={data.thumbnail} alt={data.title} width="100" />;
+}
 
 export default CustomDataTable;
