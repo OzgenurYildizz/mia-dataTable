@@ -2,27 +2,19 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../component/Navbar";
 import CustomDataTable from "../component/CustomDataTable";
 import PaginationControls from '../component/PaginationControls';
+import Search from "../component/Search";
 import { useRouter } from 'next/router';
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
   const router = useRouter();
   const { query } = router;
-
   const page = query.page ? Number(query.page) : 1;
-  const per_page = query.per_page ? Number(query.per_page) : 5;
-
-  const perPageOptions = [5, 10, 20, 50];
-  const [selectedPerPage, setSelectedPerPage] = useState(per_page);
-
-  const handlePerPageChange = (value) => {
-    setSelectedPerPage(value);
-    router.push(`/?page=${page}&per_page=${value}`);
-  };
+  const per_page = query.per_page ? Number(query.per_page) : 10;
+  const [totalItems, setTotalItems] = useState(0); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +26,7 @@ export default function Home() {
         if (response.ok) {
           const result = await response.json();
           setData(result.products);
+          setTotalItems(result.totalItems);
         } else {
           console.error('API veri çekme hatası');
         }
@@ -44,6 +37,7 @@ export default function Home() {
     };
 
     fetchData();
+
   }, [page, per_page]);
 
   useEffect(() => {
@@ -54,25 +48,22 @@ export default function Home() {
       setSearchResults(results);
     }
   }, [searchTerm, data]);
-
+  
   return (
     <div>
-      <Navbar
-        searchTerm={searchTerm}
-        onSearchTermChange={setSearchTerm}
-        onSearchButtonClick={() => {
-          console.log("Clicked Button. \nCountry name:", searchTerm);
-        }}
-      />
-     
+      <Navbar/>
+      <Search 
+     searchTerm={searchTerm}
+     onSearchTermChange={setSearchTerm}/>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <CustomDataTable data={searchResults}/>
+        <CustomDataTable data={data} searchTerm={searchTerm}/>
       )}
       <PaginationControls
         hasNextPage={data.length >= per_page}
         hasPrevPage={page > 1}
+        totalItems={totalItems}
       />
     </div>
   );
