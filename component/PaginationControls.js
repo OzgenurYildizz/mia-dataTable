@@ -1,19 +1,21 @@
 import { useRouter } from 'next/router';
-import style from '../styles/table-style.module.css'
+import style from '../styles/table-style.module.css';
 
-export default function PaginationControls({ hasNextPage, hasPrevPage }) {
+export default function PaginationControls({ hasNextPage, hasPrevPage, totalItems }) {
   const router = useRouter();
   const { query } = router;
   const page = query.page ? Number(query.page) : 1;
-  const per_page = query.per_page ? Number(query.per_page) : 5;
+  const per_page = query.per_page ? Number(query.per_page) : 10;
 
-  const handlePrevPage = () => {
+  const totalPages = Math.ceil(totalItems / per_page);
+
+  const goToPrevPage = () => {
     if (page > 1) {
       router.push(`/?page=${page - 1}&per_page=${per_page}`);
     }
   };
 
-  const handleNextPage = () => {
+  const goToNextPage = () => {
     if (hasNextPage) {
       router.push(`/?page=${page + 1}&per_page=${per_page}`);
     }
@@ -23,18 +25,18 @@ export default function PaginationControls({ hasNextPage, hasPrevPage }) {
     <div className={style.paginationControls}>
       <button
         disabled={!hasPrevPage}
-        onClick={handlePrevPage}>
-        prev page
+        onClick={goToPrevPage}>
+        Prev Page
       </button>
 
       <div>
-        {page} / {Math.ceil(10 / per_page)}
+        {page} / {totalPages}
       </div>
 
       <button
         disabled={!hasNextPage}
-        onClick={handleNextPage}>
-        next page
+        onClick={goToNextPage}>
+        Next Page
       </button>
     </div>
   );
